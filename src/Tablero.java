@@ -13,17 +13,18 @@ public class Tablero{
             for (int j = 0; j < tablero.length; j++) {
                 if ((i + j)%2 == 0){
                     tablero[i][j] = "|||||";
-                    if(j == 7){
-                        System.out.println(tablero[i][j]);
-                    }else {
                         System.out.print(tablero[i][j]);
-                    }
                 } else {
                     tablero[i][j] = "-----";
                     System.out.print(tablero[i][j]);
                 }
             }
+            System.out.println("");
         }
+    }
+
+    public void agregarFichas(){
+
     }
 
 }
