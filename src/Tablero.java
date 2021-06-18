@@ -24,7 +24,27 @@ public class Tablero{
     }
 
     public void agregarFichas(){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if ((i+j) % 2 == 0) {
+                    tablero[i][j] = "";
+                    System.out.print(tablero[i][j]);
+                }
 
+                else{
+                    tablero[i][j] = "";
+                    System.out.print(tablero[i][j]);
+                }
+            }
+            System.out.println(" ");
+        }
     }
 
+    public String[][] getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(String[][] tablero) {
+        this.tablero = tablero;
+    }
 }
