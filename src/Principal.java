@@ -1,9 +1,11 @@
 package src;
 
-import src.*;
+
+import src.Juego.JuegoDamas;
 
 public class Principal {
     public static void main(String[] args) {
-        Tablero Damas = new Tablero();
+        JuegoDamas Juego = new JuegoDamas();
     }
 }
+
