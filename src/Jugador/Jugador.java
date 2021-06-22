@@ -33,7 +33,7 @@ public class Jugador {
         }
     }
 
-    public void seleccionarPersonaje(){
+    public String seleccionarPersonaje(){
         mostrarpersonajes();
         int seleccion;
         System.out.print("Ingresa el numero del personaje que elegiste: ");
@@ -46,6 +46,7 @@ public class Jugador {
                 break;
             }
         }
+        return "";
     }
 
     public void mostrarpersonajes(){

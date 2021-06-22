@@ -1,4 +1,4 @@
-package src;
+package src.Tablero;
 
 public class tablero{
     //Reset
@@ -6,52 +6,24 @@ public class tablero{
     //Colores Letra
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
-
-    //Colores Background
+    //Colores Fondo
     public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
 
-    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+    private src.Casilla[][] casillas;
+    private final int x,y;
+    private boolean juegoEnBlancas;
 
     private String[][] mostrarTablero;
-    private src.Casilla[][] casillas = new src.Casilla[8][8];
 
-    public tablero(){
-        mostrarTablero = new String[8][8];
+    public tablero(int x, int y, boolean juegoEnBlancas){
+        this.juegoEnBlancas = juegoEnBlancas;
+        this.x = x;
+        this.y = y;
+        casillas = new src.Casilla[x][y];
+        inicializarTablero();
+        generarFichas(0, 3, true, "░░");
+        generarFichas(5, 8, false, "░░");
 
-    }
-
-    public void dibujarTablero(){
-
-        int filas = 0;
-        for (int i = 0; i < mostrarTablero.length; i++) {
-            filas++;
-            System.out.print(filas);
-            for (int j = 0; j < mostrarTablero.length; j++) {
-                if ((i + j)%2 == 0){
-                    mostrarTablero[i][j] = ANSI_WHITE_BACKGROUND + "     " + ANSI_RESET;
-                    casillas[i][j].setTipoCasilla(1);
-                    casillas[i][j].setOcuparCasilla(false);
-                    System.out.print(mostrarTablero[i][j]);
-                } else if(i>=0 && i <3){
-                    //casillas[i][j].setTipoCasilla(0);
-                    //casillas[i][j].setOcuparCasilla(true);
-                    mostrarTablero[i][j] = ANSI_BLACK_BACKGROUND+"  "+ANSI_RED+"O"+"  " + ANSI_RESET;
-                    System.out.print(mostrarTablero[i][j]);
-                } else if(i>= 5 && i <=7){
-                    //casillas[i][j].setTipoCasilla(0);
-                    //casillas[i][j].setOcuparCasilla(true);
-                    mostrarTablero[i][j] = ANSI_BLACK_BACKGROUND+"  "+ANSI_YELLOW+"X"+"  " + ANSI_RESET;
-                    System.out.print(mostrarTablero[i][j]);
-                } else {
-                    //casillas[i][j].setTipoCasilla(0);
-                    //casillas[i][j].setOcuparCasilla(false);
-                    mostrarTablero[i][j] = ANSI_BLACK_BACKGROUND + "     " + ANSI_RESET;
-                    System.out.print(mostrarTablero[i][j]);
-                }
-            }
-            System.out.println("");
-        }
-        System.out.println("\n");
     }
 
     public void generarCasillas(){
@@ -59,7 +31,6 @@ public class tablero{
             for (int j = 0; j < mostrarTablero.length; j++) {
                 if(i <= 2){
                     if((i + j) % 2 == 0){
-
                         mostrarTablero[i][j] = ANSI_BLACK_BACKGROUND+"  "+ANSI_RED+"O"+"  " + ANSI_RESET;
                         System.out.println(mostrarTablero[i][j]);
                     }
@@ -84,12 +55,64 @@ public class tablero{
         }
     }
 
-
-    public String[][] getMostrarTablero() {
-        return mostrarTablero;
+    private void generarFichas(int ini, int cant, boolean esBlanca, String id){
+        for (int i = ini; i < cant; i++) {
+            for (int j = 0; j < x; j++) {
+                if (casillas[j][i].getEsColor() == !juegoEnBlancas){
+                    casillas[j][i].setFicha(new Ficha(!esBlanca, id ));
+                }
+            }
+        }
     }
 
-    public void setMostrarTablero(String[][] mostrarTablero) {
-        this.mostrarTablero = mostrarTablero;
+    public boolean moverFicha(int posXIni, int posYIni, int posXFin, int posYFin){
+        boolean resultado = false;
+        if (casillas[posXIni][posYIni].ocupadaPorFicha()){
+            if (!casillas[posXFin][posYFin].ocupadaPorFicha()){
+                casillas[posXFin][posYFin].setFicha(casillas[posXIni][posYIni].getFicha());
+                resultado = true;
+            }
+        }
+        return resultado;
     }
+
+    public boolean  comerFicha(int posXIni, int posYIni, int posXFin, int posYFin){
+        boolean resultado = false;
+        if (casillas[posXIni][posYIni].ocupadaPorFicha()){
+            if (casillas[posXFin][posYFin].ocupadaPorFicha()){
+                casillas[posXFin][posYFin].desocupadaPorFicha();
+                casillas[posXFin][posYFin].setFicha(casillas[posXIni][posYIni].getFicha());
+                resultado = true;
+            }
+        }
+        return resultado;
+    }
+
+    private void inicializarTablero() {
+        boolean esColorInicio = false;
+        boolean esColorIteracion = false;
+        for (int i = 0; i < y; i++) {
+            esColorIteracion = !esColorInicio;
+            for (int j = 0; j < x; j++) {
+                casillas[j][i] = new src.Casilla(esColorIteracion);
+                esColorIteracion = !esColorIteracion;
+
+            }
+            esColorInicio = !esColorInicio;
+        }
+    }
+
+        public void pintarTablero () {
+
+            for (int i = 0; i < y; i++) {
+
+                for (int k = 0; k < 3; k++) {
+                    for (int j = 0; j < x; j++) {
+                        System.out.print(casillas[j][i].pintarCelda(k));
+                    }
+                    System.out.println("");
+                }
+
+            }
+        }
 }
