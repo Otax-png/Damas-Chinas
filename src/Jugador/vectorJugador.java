@@ -1,11 +1,9 @@
 package src.Jugador;
 
 public class vectorJugador {
-
-    public Jugador[] listaJugadores;
-
+    int cantidadJugadores = 10;
+    public Jugador[] listaJugadores = new Jugador[10];
     public vectorJugador(){
-
 
     }
 

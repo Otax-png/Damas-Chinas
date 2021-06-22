@@ -1,4 +1,7 @@
-package src.Tablero;
+package src;
 
 public class Ficha {
+
+
+
 }

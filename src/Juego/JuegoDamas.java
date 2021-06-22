@@ -1,5 +1,6 @@
 package src.Juego;
 
+import src.PPT;
 import src.tablero;
 import src.Jugador.vectorJugador;
 
@@ -7,6 +8,7 @@ import java.util.Scanner;
 
 
 public class JuegoDamas {
+
     tablero Jugar = new tablero();
     vectorJugador jugadores = new vectorJugador();
     Scanner entrada = new Scanner(System.in);
@@ -26,7 +28,9 @@ public class JuegoDamas {
             checkOption = entrada.nextInt();
 
             switch (checkOption){
-                case 1: Jugar.dibujarTablero();
+                case 1:
+                    PPT juegoPiedraPT = new PPT();
+                    Jugar.dibujarTablero();
                         break;
                 case 2: jugadores.mostrarJugadores();
                         break;

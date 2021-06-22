@@ -1,7 +1,5 @@
 package src;
 
-import java.util.Calendar;
-
 public class tablero{
     //Reset
     public static final String ANSI_RESET = "\u001B[0m";
@@ -15,9 +13,11 @@ public class tablero{
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     private String[][] mostrarTablero;
+    private src.Casilla[][] casillas = new src.Casilla[8][8];
 
     public tablero(){
         mostrarTablero = new String[8][8];
+
     }
 
     public void dibujarTablero(){
@@ -29,8 +29,8 @@ public class tablero{
             for (int j = 0; j < mostrarTablero.length; j++) {
                 if ((i + j)%2 == 0){
                     mostrarTablero[i][j] = ANSI_WHITE_BACKGROUND + "     " + ANSI_RESET;
-                    //casillas[i][j].setTipoCasilla(1);
-                    //casillas[i][j].setOcuparCasilla(false);
+                    casillas[i][j].setTipoCasilla(1);
+                    casillas[i][j].setOcuparCasilla(false);
                     System.out.print(mostrarTablero[i][j]);
                 } else if(i>=0 && i <3){
                     //casillas[i][j].setTipoCasilla(0);
@@ -49,12 +49,13 @@ public class tablero{
                     System.out.print(mostrarTablero[i][j]);
                 }
             }
-            System.out.println(" ");
+            System.out.println("");
         }
+        System.out.println("\n");
     }
 
-    public void agregarFichas(){
-        for (int i = 0; i < mostrarTablero.length; i++) {
+    public void generarCasillas(){
+        for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < mostrarTablero.length; j++) {
                 if(i <= 2){
                     if((i + j) % 2 == 0){
